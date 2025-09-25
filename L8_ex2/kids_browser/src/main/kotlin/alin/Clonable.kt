@@ -1,4 +1,0 @@
-package alin
-
-interface Clonable {
-}
