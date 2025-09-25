@@ -1,0 +1,2 @@
+Text nou. Gata de testat!
+Incercam eliminarea mai multor .,/.':caractere

@@ -1,0 +1,43 @@
+Start-Date: 2025-04-01  01:05:49
+Commandline: apt install sqlite3 sqlitebrowser
+Requested-By: alin (1000)
+Install: libqscintilla2-qt5-l10n:amd64 (2.14.1+dfsg-1build3, automatic), libqscintilla2-qt5-15:amd64 (2.14.1+dfsg-1build3, automatic), sqlitebrowser:amd64 (3.12.2-3build2), sqlite3:amd64 (3.45.1-1ubuntu2.1)
+End-Date: 2025-04-01  01:05:50
+
+Start-Date: 2025-04-02  16:37:43
+Commandline: /usr/bin/unattended-upgrade
+Upgrade: libjavascriptcoregtk-4.1-0:amd64 (2.46.6-0ubuntu0.24.04.1, 2.48.0-0ubuntu0.24.04.1), gir1.2-javascriptcoregtk-4.1:amd64 (2.46.6-0ubuntu0.24.04.1, 2.48.0-0ubuntu0.24.04.1), gir1.2-javascriptcoregtk-6.0:amd64 (2.46.6-0ubuntu0.24.04.1, 2.48.0-0ubuntu0.24.04.1), gir1.2-webkit2-4.1:amd64 (2.46.6-0ubuntu0.24.04.1, 2.48.0-0ubuntu0.24.04.1), libjavascriptcoregtk-6.0-1:amd64 (2.46.6-0ubuntu0.24.04.1, 2.48.0-0ubuntu0.24.04.1), libwebkit2gtk-4.1-0:amd64 (2.46.6-0ubuntu0.24.04.1, 2.48.0-0ubuntu0.24.04.1), gir1.2-webkit-6.0:amd64 (2.46.6-0ubuntu0.24.04.1, 2.48.0-0ubuntu0.24.04.1), libwebkitgtk-6.0-4:amd64 (2.46.6-0ubuntu0.24.04.1, 2.48.0-0ubuntu0.24.04.1)
+End-Date: 2025-04-02  16:37:46
+
+Start-Date: 2025-04-02  16:37:48
+Commandline: /usr/bin/unattended-upgrade
+Upgrade: libgs10-common:amd64 (10.02.1~dfsg1-0ubuntu7.4, 10.02.1~dfsg1-0ubuntu7.5), libgs10:amd64 (10.02.1~dfsg1-0ubuntu7.4, 10.02.1~dfsg1-0ubuntu7.5), ghostscript:amd64 (10.02.1~dfsg1-0ubuntu7.4, 10.02.1~dfsg1-0ubuntu7.5), libgs-common:amd64 (10.02.1~dfsg1-0ubuntu7.4, 10.02.1~dfsg1-0ubuntu7.5)
+End-Date: 2025-04-02  16:37:49
+
+Start-Date: 2025-04-02  16:37:51
+Commandline: /usr/bin/unattended-upgrade
+Upgrade: linux-tools-common:amd64 (6.8.0-55.57, 6.8.0-57.59), linux-libc-dev:amd64 (6.8.0-55.57, 6.8.0-57.59)
+End-Date: 2025-04-02  16:37:52
+
+Start-Date: 2025-04-02  16:37:54
+Commandline: /usr/bin/unattended-upgrade
+Install: linux-modules-6.11.0-21-generic:amd64 (6.11.0-21.21~24.04.1, automatic), linux-objects-nvidia-550-6.11.0-21-generic:amd64 (6.11.0-21.21~24.04.1+1, automatic), linux-signatures-nvidia-6.11.0-21-generic:amd64 (6.11.0-21.21~24.04.1+1, automatic), linux-image-6.11.0-21-generic:amd64 (6.11.0-21.21~24.04.1+1, automatic), linux-modules-nvidia-550-6.11.0-21-generic:amd64 (6.11.0-21.21~24.04.1+1, automatic)
+Upgrade: linux-modules-nvidia-550-generic-hwe-24.04:amd64 (6.11.0-19.19~24.04.1+1, 6.11.0-21.21~24.04.1+1)
+End-Date: 2025-04-02  16:38:01
+
+Start-Date: 2025-04-02  16:38:02
+Commandline: /usr/bin/unattended-upgrade
+Install: linux-hwe-6.11-tools-6.11.0-21:amd64 (6.11.0-21.21~24.04.1, automatic), linux-modules-extra-6.11.0-21-generic:amd64 (6.11.0-21.21~24.04.1, automatic), linux-tools-6.11.0-21-generic:amd64 (6.11.0-21.21~24.04.1, automatic), linux-headers-6.11.0-21-generic:amd64 (6.11.0-21.21~24.04.1, automatic), linux-hwe-6.11-headers-6.11.0-21:amd64 (6.11.0-21.21~24.04.1, automatic)
+Upgrade: linux-headers-generic-hwe-24.04:amd64 (6.11.0-19.19~24.04.1, 6.11.0-21.21~24.04.1), linux-generic-hwe-24.04:amd64 (6.11.0-19.19~24.04.1, 6.11.0-21.21~24.04.1), linux-image-generic-hwe-24.04:amd64 (6.11.0-19.19~24.04.1, 6.11.0-21.21~24.04.1)
+End-Date: 2025-04-02  16:38:16
+
+Start-Date: 2025-04-02  16:38:18
+Commandline: /usr/bin/unattended-upgrade
+Upgrade: tzdata:amd64 (2024b-0ubuntu0.24.04.1, 2025a-0ubuntu0.24.04)
+End-Date: 2025-04-02  16:38:18
+
+Start-Date: 2025-04-10  11:33:15
+Commandline: apt install gawk
+Requested-By: alin (1000)
+Install: libsigsegv2:amd64 (2.14-1ubuntu2, automatic), gawk:amd64 (1:5.2.1-2build3)
+End-Date: 2025-04-10  11:33:16
