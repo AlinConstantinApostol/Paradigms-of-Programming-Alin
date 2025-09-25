@@ -27,3 +27,29 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# IntelliJ / PyCharm / JetBrains
+.idea/
+*.iml
+
+# VSCode
+.vscode/
+
+# Virtual environments
+venv/
+.env/
+__pycache__/
+
+# Compiled files
+*.class
+*.o
+*.exe
+*.dll
+*.so
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
