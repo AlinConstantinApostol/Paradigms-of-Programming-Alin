@@ -1,55 +1,26 @@
-### IntelliJ IDEA ###
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-### VS Code ###
-.vscode/
-
-### Mac OS ###
-.DS_Store
-
-# IntelliJ / PyCharm / JetBrains
+# IDE
 .idea/
 *.iml
-
-# VSCode
 .vscode/
 
-# Virtual environments
+# Python virtualenvs
 venv/
-.env/
+venv*/
+env/
+.venv/
+venvact/
+
+# Python caches
 __pycache__/
+*.pyc
 
-# Compiled files
-*.class
-*.o
-*.exe
-*.dll
-*.so
-
-# Logs
-*.log
-
-# OS files
+# OS
 .DS_Store
 Thumbs.db
+
+# build / jars / binaries
+dist/
+build/
+*.jar
+*.zip
+bfg.jar
