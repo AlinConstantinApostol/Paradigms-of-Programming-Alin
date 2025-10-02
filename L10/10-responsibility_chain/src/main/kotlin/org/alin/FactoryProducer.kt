@@ -1,4 +1,4 @@
-package org.alex
+package org.alin
 
 import java.util.Scanner
 
