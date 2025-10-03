@@ -17,30 +17,14 @@ Rezultatul final: `2989`.
 
 ## Fișier
 `Hello.kt` — conține implementarea în Kotlin.
-
-Exemplu de cod (implementare folosită):
-```kotlin
-fun main() {
-    val result = listOf(1, 21, 75, 39, 7, 2, 35, 3, 31, 7, 8)
-        .filter { it >= 5 }
-        .chunked(2)
-        .map { (x, y) -> x * y }
-        .fold(0) { acc, i -> acc + i }
-
-    println(result)
-}
-
 Cerințe
 
-    Kotlin 1.8+ sau compatibil
+Kotlin 1.8+ sau compatibil
 
 Execuție
 
 Din linia de comandă:
-
 kotlinc Hello.kt -include-runtime -d Hello.jar
 java -jar Hello.jar
-
-Output așteptat
-
-Rezultat asteptat: 2989
+Output asteptat:
+2989
