@@ -1,41 +1,38 @@
-# Caesar Cipher — criptare selectivă (cuvinte 4..7 caractere)
+# Calculul perimetrului unui poligon folosind `zipWithNext`
 
 ## Descriere
-Programul citește text din fișierul `fisier.txt` și criptează, folosind cifrul Caesar, **doar** cuvintele a căror lungime este între 4 și 7 caractere (inclusiv). Off­set-ul pentru cifru este introdus de la tastatură. Rezultatul (lista de cuvinte criptate, separate prin virgulă și spațiu) este afișat în consolă.
+Programul citește de la tastatură coordonatele vârfurilor unui poligon convex sau concav (închis automat prin conectarea ultimului punct cu primul) și calculează perimetrul acestuia.  
+Pentru determinarea perimetrului se folosește funcția `zipWithNext`, care creează perechi de puncte consecutive.
 
 ## Structura proiect
 ├── src/
 │ └── Main.kt
-├── fisier.txt
 ├── .gitignore
-└── ex2_caesar_script.iml
+└── ex3_polygon_perimeter.iml
 
-## Comportament
-- Se elimină din text semnele „.” și „,” înainte de procesare.
-- Se împarte textul în cuvinte după spațiu.
-- Pentru fiecare cuvânt cu `4 <= lungime <= 7` se aplică cifrul Caesar cu offsetul introdus.
-- Se afișează rezultatul ca listă de cuvinte criptate separate prin `, `.
+## Funcționalitate
+1. Se citește numărul `n` de puncte al poligonului.
+2. Se citesc coordonatele fiecărui punct sub forma `(x, y)`.
+3. Se închide poligonul adăugând primul punct la finalul listei.
+4. Se calculează distanța euclidiană între fiecare pereche de puncte consecutive folosind:
+   \[
+   d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
+   \]
+5. Se însumează toate distanțele pentru a obține perimetrul.
 
 ## Compilare & rulare (Kotlin CLI)
-Din directorul proiectului:
-
 ```bash
-kotlinc -script src/Main.kt
-# sau pentru a produce jar:
-kotlinc src/Main.kt -include-runtime -d caesar.jar
-java -jar caesar.jar
-Rulare (exemplu)
+kotlinc src/Main.kt -include-runtime -d polygon.jar
+java -jar polygon.jar
+Exemplu de rulare
 
-La rulare programul va cere:
-Type the offset for the caesar_cipher:
-Introduceți un număr întreg (de exemplu 3) și apăsați Enter. Programul va procesa fisier.txt și va afișa în consolă lista cuvintelor criptate.
-
-Fișier de intrare
-
-Numele fișierului folosit implicit este fisier.txt aflat în rădăcina proiectului. Dacă doriți alt fișier, modificați linia din Main.kt:
-val file = File("fisier.txt")
-Exemplu scurt
-
-Textul din fisier.txt:
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-Dacă offset = 1, cuvintele cu lungime între 4 și 7 vor fi criptate (ex: Lorem -> Mpsfn, ipsum -> jqtvn, etc.) și vor fi listate în output.
+Input:
+Number of polygon points: 
+4
+0 0
+0 1
+1 0
+1 1
+Output:
+4.82842712474619
+Rezultatul reprezintă perimetrul poligonului format din punctele citite.
