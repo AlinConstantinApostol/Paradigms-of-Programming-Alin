@@ -1,30 +1,59 @@
-# Prelucrare funcțională a unei liste în Kotlin (filter → chunked → map → fold)
+# Functional List Processing Pipeline (Kotlin)
 
-## Descriere
-Se aplică operații funcționale pe lista `[1, 21, 75, 39, 7, 2, 35, 3, 31, 7, 8]`:
-1. Se elimină elementele mai mici decât 5.
-2. Se grupează elementele rămase în subliste de câte 2 elemente.
-3. Se înmulesc elementele din fiecare pereche.
-4. Se însumează produsele obținute.
+## 📝 Description
+This project demonstrates the power and readability of **Functional Programming** in Kotlin by implementing a declarative data transformation pipeline. The application processes a numeric collection through a series of higher-order functions—`filter`, `chunked`, `map`, and `fold`—to achieve a specific computational result without using mutable state or manual loops.
 
-Rezultatul final: `2989`.
+The project highlights how complex logic can be condensed into a single, highly readable chain of operations, emphasizing the "what" rather than the "how."
 
-## Algoritm (pași)
-- `.filter { it >= 5 }` — păstrează doar elementele `>= 5`.
-- `.chunked(2)` — creează subliste de câte 2 elemente consecutive.
-- `.map { (x, y) -> x * y }` — calculează produsul pentru fiecare pereche.
-- `.fold(0) { acc, i -> acc + i }` — însumează produsele obținute.
+## 🚀 The Functional Pipeline
+The transformation follows these distinct stages:
+1.  **Filtering**: Removes noise by keeping only elements strictly greater than or equal to 5.
+2.  **Chunking**: Groups the filtered elements into sublists (pairs) of 2 consecutive elements.
+3.  **Mapping**: Performs a transformation on each pair by calculating the product of its elements.
+4.  **Folding**: Aggregates all individual products into a final sum, starting from an accumulator of 0.
 
-## Fișier
-`Hello.kt` — conține implementarea în Kotlin.
-Cerințe
 
-Kotlin 1.8+ sau compatibil
 
-Execuție
+## 🏗️ Project Structure
+```text
+project-root/
+└── Hello.kt          # Core logic implementing the functional chain
 
-Din linia de comandă:
-kotlinc Hello.kt -include-runtime -d Hello.jar
-java -jar Hello.jar
-Output asteptat:
+🔄 Algorithm Breakdown
+
+Given the initial input: [1, 21, 75, 39, 7, 2, 35, 3, 31, 7, 8]
+
+    Step 1: Filter (it >= 5) → [21, 75, 39, 7, 35, 31, 7, 8]
+
+    Step 2: Chunked (size = 2) → [[21, 75], [39, 7], [35, 31], [7, 8]]
+
+    Step 3: Map (x * y) → [1575, 273, 1085, 56]
+
+    Step 4: Fold (sum) → Result: 2989
+
+💻 Execution Example
+
+Output:
+Plaintext
+
 2989
+
+⚙️ Build & Run (Kotlin CLI)
+
+    Compile the source file:
+    Bash
+
+    kotlinc Hello.kt -include-runtime -d Hello.jar
+
+    Run the application:
+    Bash
+
+    java -jar Hello.jar
+
+🛠️ Tech Stack
+
+    Language: Kotlin 1.8+
+
+    Paradigm: Functional Programming
+
+    Operations: List API (Filter, Chunked, Map, Fold)

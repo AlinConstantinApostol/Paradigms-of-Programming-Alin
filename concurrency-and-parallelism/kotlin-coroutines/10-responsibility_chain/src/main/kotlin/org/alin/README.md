@@ -1,39 +1,30 @@
-# Double Chain of Responsibility (compatible Hello.kt)
+# Bidirectional Chain of Responsibility with Factory Patterns
 
-## Descriere
-Aplicația implementează un lanț dublu (sus/jos) de responsabilități. Un `Request - <mesaj>` pleacă de la capătul superior (CEO) și este forwardat până la handler-ul potrivit, care procesează cererea (simulat cu `delay`) și trimite `Response - <mesaj>` înapoi pe lanțul inferior către superiori.
+## 📝 Description
+This project implements an advanced **Double Chain of Responsibility** pattern in Kotlin. It simulates a corporate hierarchy where a `Request` flows downward from the top-level management to a worker, and a subsequent `Response` is propagated back up the chain.
 
-## Structura minimă
+The implementation is enhanced by incorporating the **Abstract Factory** pattern to decouple the creation of handlers from their execution logic, showcasing clean code principles and architectural scalability.
+
+## 🚀 Key Features
+* **Bidirectional Propagation**: Requests move from `CEO` $\to$ `Worker`, while responses travel from `Worker` $\to$ `CEO`.
+* **Asynchronous Simulation**: Uses **Kotlin Coroutines** and `delay` to simulate real-world processing time without blocking threads.
+* **Design Patterns Integration**:
+    * **Chain of Responsibility**: Manages the delegation of tasks across the hierarchy.
+    * **Abstract Factory**: Encapsulates the instantiation of specific handler groups (Elite vs. Happy Workers).
+
+## 🏗️ Project Structure
+```text
 project-root/
 ├── src/
-│ └── main/
-│ └── kotlin/
-│ └── org/
-│ └── alin/
-│ ├── AbstractFactory.kt
-│ ├── EliteFactory.kt
-│ ├── HappyWorkerFactory.kt
-│ ├── FactoryProducer.kt
-│ ├── Handler.kt
-│ └── Hello.kt
+│   └── main/
+│       └── kotlin/
+│           └── org/
+│               └── alin/
+│                   ├── AbstractFactory.kt      # Factory Interface
+│                   ├── EliteFactory.kt         # Concrete Factory for Management
+│                   ├── HappyWorkerFactory.kt   # Concrete Factory for Workers
+│                   ├── FactoryProducer.kt      # Factory Generator
+│                   ├── Handler.kt              # Base Handler Interface
+│                   └── Hello.kt                # Implementation & Execution Logic
 ├── pom.xml
 └── .gitignore
-
-## Clase principale
-- `Handler` (existent în proiect) — interfață folosită de handler-e.
-- `CEOHandler`, `ExecutiveHandler`, `ManagerHandler`, `HappyWorkerHandler` — implementări concrete (definite în `Hello.kt` pentru test).
-- Fiecare handler are referințe `next` și `prev`.
-- Logica de forward/process se realizează intern în `handleRequest`, folosind corutine (`kotlinx.coroutines`) și `delay`.
-
-## Mesaje
-- Cerere: `Request - <descriere>`
-- Răspuns: `Response - <descriere>`
-
-## Build & Run
-1. `mvn clean compile`
-2. `mvn exec:java -Dexec.mainClass="org.alin.HelloKt"`
-
-## Observații de integrare
-- `Hello.kt` test este compatibil cu fișierul `Handler.kt` din proiect (folosește interfața `Handler` existentă).
-- Dacă în proiect există implementări de fabrici (`AbstractFactory`, `EliteFactory`, `HappyWorkerFactory`), acestea pot fi adaptate pentru a furniza instanțele concrete (`CEOHandler`, `ExecutiveHandler`, ...).
-

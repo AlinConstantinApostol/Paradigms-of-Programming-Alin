@@ -48,15 +48,15 @@ Instead of a simple laboratory list, this repository is organized by core softwa
 
 Each module represents a specific area of study:
 
-    L01 - L02: Environment Setup & Polyglot (GraalVM) experiments.
+    polyglot-graalvm-setup: Environment Setup & Polyglot (GraalVM) experiments.
 
-    L05: Message Queue implementations and asynchronous workflows.
+    python-gui-multithreading: Message Queue implementations and asynchronous workflows.
 
-    L06 - L09: Advanced OOP, SOLID principles, and Design Patterns (Python/Kotlin).
+    python-oop-principles, kotlin-generics-collections, software-design-patterns: Advanced OOP, SOLID principles, and Design Patterns (Python/Kotlin).
 
-    L10 - L11: Concurrency models: Coroutines (Kotlin) and Multiprocessing (Python).
+    concurrency-and-parallelism: Concurrency models: Coroutines (Kotlin) and Multiprocessing (Python).
 
-    L12 - L14: Functional paradigms and Logic programming integration.
+    functional-programming-kotlin, logic-programming-prolog: Functional paradigms and Logic programming integration.
 
 ⚙️ How to Run
 
