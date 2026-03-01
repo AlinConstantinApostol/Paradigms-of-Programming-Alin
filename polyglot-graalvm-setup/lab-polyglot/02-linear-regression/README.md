@@ -1,4 +1,3 @@
-This project is a standout piece for your portfolio because it demonstrates Polyglot Programming—a high-level skill where you break the boundaries between programming languages. By using GraalVM, you show that you can leverage the strengths of both Java (for structure and execution) and Python (for rapid text processing) within a single runtime environment.
 Polyglot Word Checksum: Java & Python Interoperability
 📝 Description
 
