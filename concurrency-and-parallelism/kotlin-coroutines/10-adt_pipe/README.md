@@ -1,60 +1,63 @@
-# Pipeline Processing for Integer ADT (Coroutines)
+# Pipeline Processing for Integer ADT using Kotlin Coroutines
 
-## Descriere
-Aplicația implementează un **model pipeline** pentru procesarea unui ADT întreg. Fiecare etapă a pipeline-ului este realizată de o corutină care comunică prin **Channel**:
+## 📝 Description
+This application implements a **Pipeline Design Pattern** for processing an Integer Abstract Data Type (ADT). The core architecture leverages **Kotlin Coroutines** for non-blocking execution and **Channels** for thread-safe communication between processing stages.
 
-1. **Constant Multiplier** — înmulțește fiecare element din vector cu o constantă `alpha`.
-2. **Sorting Function** — sortează elementele procesate de etapa anterioară.
-3. **Print ADT** — afișează elementele procesate.
+The pipeline consists of three concurrent stages:
+1.  **Constant Multiplier**: Multiplies each element of an input vector by a constant factor ($\alpha$).
+2.  **Sorting Function**: Buffers and sorts the elements received from the previous stage.
+3.  **Print ADT**: Consumes the sorted data and outputs it to the console.
 
-Fiecare etapă rulează concurent folosind **corutine Kotlin** și utilizează canale pentru transmiterea datelor între etape.
+Each stage runs as a separate coroutine, ensuring that data flows through the pipeline asynchronously without blocking the main execution thread.
 
----
-
-## Structura proiectului
-
+## 🏗️ Project Structure
+```text
 project-root/
 ├── src/
-│ └── main/
-│ └── kotlin/
-│ └── org/
-│ └── alin/
-│ └── Hello.kt
+│   └── main/
+│       └── kotlin/
+│           └── org/
+│               └── alin/
+│                   └── Hello.kt
 ├── pom.xml
 └── .gitignore
 
----
+🛠️ Key Functions
 
-## Funcții principale
+    suspend fun constantMultiplier(vector: List<Int>, alfa: Int, outputChannel: SendChannel<Int>)
 
-- `suspend fun constantMultiplier(vector: List<Int>, alfa: Int, outputChannel: SendChannel<Int>)`  
-  Înmultiește fiecare element din vector cu `alfa` și trimite rezultatele pe canalul de ieșire.
+        Processes the initial vector and streams the results to the output channel.
 
-- `suspend fun sortingFunction(inputChannel: ReceiveChannel<Int>, outputChannel: SendChannel<Int>)`  
-  Primește elemente de la canalul de intrare, le sortează și le trimite pe canalul de ieșire.
+    suspend fun sortingFunction(inputChannel: ReceiveChannel<Int>, outputChannel: SendChannel<Int>)
 
-- `suspend fun printADT(inputChannel: ReceiveChannel<Int>)`  
-  Primește elementele sortate și le afișează pe ecran.
+        Collects elements from the input stream, performs sorting logic, and forwards them.
 
-- `suspend fun main()`  
-  Creează pipeline-ul de procesare, inițializează corutinele și canalele, și așteaptă finalizarea lor.
+    suspend fun printADT(inputChannel: ReceiveChannel<Int>)
 
----
+        Terminal stage of the pipeline that displays the final processed data.
 
-## Exemplu de execuție
+    suspend fun main()
 
-1. Vector inițial: `[21, 34, 12, 14, 7, 9, 81, 22]`
-2. Se aplică `constantMultiplier` cu `alfa = 5`: `[105, 170, 60, 70, 35, 45, 405, 110]`
-3. Se sortează: `[35, 45, 60, 70, 105, 110, 170, 405]`
-4. Se afișează rezultatul final în consolă.
+        Orchestrates the pipeline by initializing the coroutines and managing channel lifecycles.
 
----
+💻 Execution Example
 
-## Build & Run
+    Initial Vector: [21, 34, 12, 14, 7, 9, 81, 22]
 
-1. Compilează proiectul cu Maven:
-```bash
-mvn clean compile
+    Multiplier Stage (α=5): [105, 170, 60, 70, 35, 45, 405, 110]
 
-2.Rulează aplicația:
-mvn exec:java -Dexec.mainClass="org.alin.HelloKt"
+    Sorting Stage: [35, 45, 60, 70, 105, 110, 170, 405]
+
+    Final Output: Displayed in console via the Print stage.
+
+⚙️ Build & Run
+
+    Compile the project using Maven:
+    Bash
+
+    mvn clean compile
+
+    Run the application:
+    Bash
+
+    mvn exec:java -Dexec.mainClass="org.alin.HelloKt"
