@@ -1,89 +1,76 @@
-# Kids Browser - Browser pentru copii cu control parental
+KidsBrowser: Secure Web Navigation via Design Patterns
+📝 Description
 
-## Descriere
-Acest proiect implementează un browser pentru copii folosind **modelele de design Prototype, Proxy și Facade**:
+KidsBrowser is a specialized HTTP client wrapper designed with safety as a priority. It implements a multi-layered parental control system that intercepts web requests to filter out restricted content. The project serves as a technical showcase for the practical application of Creational and Structural Design Patterns in Kotlin, ensuring the code remains modular, secure, and easy to use.
+🚀 Design Patterns in Action
 
-- **Prototype:** pentru a crea cereri HTTP generice reutilizabile (`GenericRequest`).
-- **Proxy:** pentru a aplica control parental asupra cererilor HTTP de tip GET (`CleanGetRequest`).
-- **Facade:** pentru a oferi o interfață simplificată către browser (`KidsBrowser`).
+To achieve a clean architecture, the project utilizes three fundamental patterns:
+Pattern	Role in Project	Benefit
+Prototype	GenericRequest implementation	Allows efficient cloning of base HTTP requests to reuse headers and configurations.
+Proxy	CleanGetRequest layer	Acts as a security firewall, intercepting GET requests to validate URLs against a blacklist before execution.
+Facade	KidsBrowser interface	Provides a high-level, simplified entry point for the user, hiding the complexity of request types and filtering logic.
+🏗️ Project Structure
+Plaintext
 
-Browser-ul verifică automat dacă URL-ul accesat conține cuvinte restricționate și redirecționează către o pagină sigură dacă este cazul.
-
----
-
-## Structura proiectului
-
-```
 ParentalControl/
-├── blockedKeywords.txt      # Lista de cuvinte restricționate
+├── blockedKeywords.txt      # Blacklist of restricted terms/URLs
 src/
-├── Clonable.kt
-├── GenericRequest.kt
-├── GetRequest.kt
-├── CleanGetRequest.kt
-├── PostRequest.kt
-├── KidsBrowser.kt
-└── Hello.kt                 # Punctul de intrare al aplicației
+├── Clonable.kt              # Interface for Prototype pattern
+├── GenericRequest.kt        # Base Prototype implementation
+├── GetRequest.kt            # Standard GET implementation
+├── CleanGetRequest.kt       # The Security Proxy (Parental Control)
+├── PostRequest.kt           # Standard POST implementation
+├── KidsBrowser.kt           # The Facade (Simplified API)
+└── Hello.kt                 # Main entry point
 target/
-pom.xml
-```
+pom.xml                      # Maven configuration
 
----
+🔄 How It Works
 
-## Cum funcționează
+The browser flow follows a secure pipeline to protect the end-user:
 
-1. **GenericRequest** – clasa care implementează clonarea cererilor HTTP pentru reutilizare.
-2. **GetRequest / PostRequest** – clase pentru realizarea cererilor HTTP GET și POST folosind librăria [khttp](https://khttp.readthedocs.io/en/latest/).
-3. **CleanGetRequest** – proxy care interceptează cererile GET și verifică dacă URL-ul conține cuvinte restricționate din `blockedKeywords.txt`. Dacă da, browser-ul redirecționează către o pagină sigură.
-4. **KidsBrowser** – fațada care oferă o interfață simplificată pentru a alege între GET și POST și pentru a obține răspunsul.
-5. **Hello.kt** – scriptul principal care pornește browser-ul și testează funcționalitatea.
+    Request Initiation: The user interacts with the KidsBrowser (Facade).
 
----
+    Security Interception: If a GET request is made, the CleanGetRequest (Proxy) checks the target URL.
 
-## Folosire
+    Blacklist Validation: The Proxy reads blockedKeywords.txt. If a match is found, the request is aborted.
 
-1. Clonează proiectul:
+    Redirection/Execution: Safe requests proceed normally; blocked requests are redirected to a pre-defined "Safe Page."
 
-```bash
-git clone <repo-url>
-cd ParentalControl
-```
+💻 Usage Example
 
-2. Compilează și rulează aplicația:
+Input (Console):
+Plaintext
 
-```bash
-mvn clean compile exec:java -Dexec.mainClass="org.alin.HelloKt"
-```
-
-3. Introdu tipul cererii (`GET` sau `POST`) când aplicația cere.
-
-Exemplu:
-
-```
+Enter request type (GET/POST): 
 GET
-CANNOT ACCESS THIS WEBSITE! VALEA PE NORIEL COPILAS, N-AI CE CAUTA AICI!
-```
+URL: http://restricted-site.com
 
----
+Output:
+Plaintext
 
-## Control parental
+CANNOT ACCESS THIS WEBSITE! ACCESS DENIED BY PARENTAL CONTROL.
+Redirecting to: http://safe-for-kids.com
 
-- Lista de cuvinte restricționate se află în `ParentalControl/blockedKeywords.txt`.
-- Orice URL care conține unul dintre aceste cuvinte este blocat automat și redirecționat.
+⚙️ Build & Run
 
----
+Ensure you have Maven and JDK 8+ installed.
 
-## Dependențe
+    Clone and Navigate:
+    Bash
 
-- Kotlin 1.3.71
-- Maven
-- [khttp](https://khttp.readthedocs.io/en/latest/) 0.1.0
+    git clone <repo-url>
+    cd ParentalControl
 
-```xml
-<dependency>
-    <groupId>com.github.jkcclemens</groupId>
-    <artifactId>khttp</artifactId>
-    <version>0.1.0</version>
-</dependency>
-```
+    Compile and Execute:
+    Bash
 
+    mvn clean compile exec:java -Dexec.mainClass="org.alin.HelloKt"
+
+🛠️ Tech Stack
+
+    Language: Kotlin 1.3.71
+
+    Build Tool: Maven
+
+    HTTP Client: khttp
