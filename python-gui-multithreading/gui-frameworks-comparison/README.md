@@ -1,4 +1,5 @@
 Cross-Language IPC: PyQt5 GUI to C via System V Message Queues
+
 📝 Description
 
 This project demonstrates a sophisticated integration between a high-level Python GUI and a low-level C processing engine. It utilizes System V Message Queues, a classic Inter-Process Communication (IPC) mechanism, to pass data across the language barrier in real-time.
