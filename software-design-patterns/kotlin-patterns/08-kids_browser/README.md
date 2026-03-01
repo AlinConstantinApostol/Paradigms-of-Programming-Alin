@@ -1,4 +1,5 @@
 KidsBrowser: Secure Web Navigation via Design Patterns
+
 📝 Description
 
 KidsBrowser is a specialized HTTP client wrapper designed with safety as a priority. It implements a multi-layered parental control system that intercepts web requests to filter out restricted content. The project serves as a technical showcase for the practical application of Creational and Structural Design Patterns in Kotlin, ensuring the code remains modular, secure, and easy to use.
