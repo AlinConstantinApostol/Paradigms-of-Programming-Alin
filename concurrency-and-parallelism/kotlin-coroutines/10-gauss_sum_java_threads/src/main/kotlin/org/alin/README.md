@@ -1,44 +1,22 @@
-> Gauss Summation (Threads)
-> Această aplicație calculează suma numerelor de la 0 până la n pentru patru valori diferite de n simultan, folosind threads JVM.
-> Cerințe esențiale
+# Concurrent Gauss Summation using JVM Threads
 
-Input: patru valori n puse într-o coadă (Queue<Int>).
+## 📝 Description
+This application demonstrates low-level parallel processing on the JVM by calculating the Gauss summation (sum of numbers from $0$ to $n$) for multiple inputs simultaneously. Unlike the Coroutines approach, this implementation uses native **JVM Threads** to handle concurrent tasks, showcasing manual thread management and task distribution via a shared queue.
 
-Pentru fiecare valoare n, se calculează sum = 0 + 1 + 2 + ... + n.
+## 🚀 Core Requirements
+* **Input Architecture**: Uses a thread-safe `Queue` (based on `sun.misc.Queue`) to store four distinct values of $n$.
+* **Parallel Execution**: Each summation task is dispatched to a dedicated JVM Thread.
+* **Computation Logic**: Implements the $\sum_{i=0}^{n} i$ summation within each thread's execution context.
+* **Asynchronous Output**: Results are printed to the console immediately upon completion, demonstrating the non-deterministic nature of parallel thread scheduling.
 
-Procesarea fiecărei valori este concurentă prin threads.
-
-Rezultatele sunt afișate imediat după calculul fiecărei valori.
-
-Structura proiectului
-> project-root/
+## 🏗️ Project Structure
+```text
+project-root/
 ├── src/
 │   └── main/
 │       └── kotlin/
 │           └── org/
 │               └── alin/
-│                   └── Hello.kt
+│                   └── Hello.kt  <-- Thread logic & GaussSummation function
 ├── pom.xml
 └── .gitignore
-Flux de execuție
-
-Coada conține valori: 4, 10, 25, 14.
-
-Fiecare thread preia o valoare din coadă.
-
-Se calculează suma Gauss pentru acea valoare.
-
-Se afișează rezultatul, în orice ordine (execuție concurentă).
-
-Clase și roluri
-
-Hello.kt — definește funcția GaussSummation(n: Int): Int și main.
-
-Queue<Int> — coada simplă pentru stocarea valorilor n (folosind sun.misc.Queue).pom.xml — configurează Kotlin
-> Build & Run
- 
-1.Compilează proiectul cu Maven:
-> mvn clean compile
-2. Rulează:
-> mvn exec:java -Dexec.mainClass="org.alin.HelloKt"
-
