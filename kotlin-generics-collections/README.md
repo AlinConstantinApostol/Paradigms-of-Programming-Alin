@@ -1,157 +1,72 @@
-HistoryLogProcessor – Laborator Paradigms of Programming
-Descriere proiect
+History Log Processor: System Log Parsing & Data Management
+📝 Description
 
-Acest proiect implementează o aplicație care procesează ultimele intrări din fișierul de log al sistemului /var/log/apt/history.log și stochează informațiile relevante într-o structură de date tip MutableHashMap.
+This application is a robust log processor designed to parse and manage entries from the Linux system log file /var/log/apt/history.log. It transforms raw text data into structured HistoryLogRecord objects, enabling efficient querying, comparison, and manipulation through a custom data pipeline.
 
-Aplicația extrage:
+The project showcases a strong command of Kotlin's type system, specifically the implementation of the Comparable interface and the use of Generic Constraints to create reusable, polymorphic functions.
+🚀 Key Features
 
-Start-Date – transformat în timestamp
+    Intelligent Log Parsing: Splits logs into distinct blocks using \n\n delimiters and extracts metadata like Start-Date (converted to timestamps) and Commandline.
 
-Commandline – comanda executată
+    Custom Domain Objects: Implements the HistoryLogRecord class with custom comparison logic based on temporal data.
 
-Opțional, alte metadate (Requested-By, Install, Upgrade, End-Date)
+    Generic Utility Library:
 
-Obiectele sunt instanțe ale clasei HistoryLogRecord, care implementează interfața Comparable pentru a permite compararea timestamp-urilor.
+        maxim<T : Comparable<T>>: A generic function to determine the most recent record.
 
-Structura proiectului
+        findAndReplace: A polymorphic function that handles map manipulation with strict type safety.
+
+🏗️ Project Structure
+Plaintext
+
 HistoryLogProcessor/
-│
 ├── src/
-│   ├── HistoryLogRecord.kt      # Clasa care stochează timestamp și commandline, implementează Comparable
-│   ├── Main.kt                  # Script principal pentru parsarea fișierului și operații pe MutableMap
-│   ├── resources/
-│   │   └── a.txt                # Exemplu de fișier de log cu intrări apt
-│   ├── .gitignore
-│   ├── ex1_homework.iml
-│   ├── out/                     # Fișiere generate de compilatorul Kotlin
-│   └── .idea/
+│   ├── HistoryLogRecord.kt  # Comparable domain class
+│   ├── Main.kt              # Log parsing logic & map operations
+│   └── resources/
+│       └── a.txt            # Sample APT log entries for testing
+├── .gitignore
+└── ex1_homework.iml
 
-Clasa principală
-HistoryLogRecord.kt
+🛠️ Implementation Details
+The Comparable Record
 
-import java.sql.Timestamp
+The core data structure implements Comparable<HistoryLogRecord>, allowing it to be used with standard sorting algorithms and our custom generic maxim function.
+Kotlin
 
 class HistoryLogRecord(val timestamp: Timestamp, val command: String) : Comparable<HistoryLogRecord> {
-
     override fun compareTo(other: HistoryLogRecord): Int {
         return this.timestamp.compareTo(other.timestamp)
     }
 }
 
-    timestamp – timestamp-ul comenzii
+Generic Logic
 
-    command – linia de comandă executată
+The project demonstrates advanced polymorphism by defining constraints on generic types to ensure they support comparison operations:
 
-    compareTo – compară două obiecte după timestamp
+    maxim(obj1: T, obj2: T): T: Returns the object with the most recent timestamp.
 
-Funcții principale
-getTimestamp(it: String): Timestamp
+    findAndReplace(firstElem, secondElem, map): Searches for an element in the MutableMap and replaces it while maintaining map integrity.
 
-    Extrage Start-Date din blocul de log
+💻 Execution Example
 
-    Transformă data într-un Timestamp Kotlin
+The application parses a log block, calculates the most recent entry, and performs a search-and-replace operation:
 
-getCommand(it: String): String
-
-    Extrage linia de comandă (Commandline)
-
-processingLogFile(pathName: String): MutableMap<Timestamp, HistoryLogRecord>
-
-    Primește calea către fișierul de log
-
-    Parsează fiecare bloc de log separat prin două linii noi (\n\n)
-
-    Creează un HistoryLogRecord pentru fiecare intrare
-
-    Returnează un MutableMap<Timestamp, HistoryLogRecord>
-
-maxim(obj1: T, obj2: T): T
-
-    Funcție generică pentru a compara două obiecte Comparable
-
-    Returnează obiectul cu cel mai recent timestamp
-
-findAndReplace(firstElem: T, secondElem: T, map: MutableMap<K,T>): MutableMap<out K, out T>
-
-    Funcție generică polimorfică
-
-    Caută un obiect într-un MutableMap și îl înlocuiește cu altul
-
-Exemplu rulare
-
-fun main() {
-    var logsMap: MutableMap<Timestamp, HistoryLogRecord> = processingLogFile("resources/a.txt")
-
-    val r1 = logsMap[Timestamp.valueOf("2025-04-01 01:05:49.0")]!!
-    val r2 = logsMap[Timestamp.valueOf("2025-04-02 16:37:43.0")]!!
-
-    val r3 = maxim(r1, r2)
-    println(r3.timestamp.toString() + " " + r3.command)
-
-    val newLogsMap = findAndReplace(r1, r2, logsMap)
-    newLogsMap.forEach {
-        println(it.key.toString() + " " + it.value.command)
-    }
-}
-
-Exemplu de output:
-
-Parsează fiecare bloc de log separat prin două linii noi (\n\n)
-
-Creează un HistoryLogRecord pentru fiecare intrare
-
-Returnează un MutableMap<Timestamp, HistoryLogRecord>
-
-maxim(obj1: T, obj2: T): T
-
-Funcție generică pentru a compara două obiecte Comparable
-
-Returnează obiectul cu cel mai recent timestamp
-
-findAndReplace(firstElem: T, secondElem: T, map: MutableMap<K,T>): MutableMap<out K, out T>
-
-Funcție generică polimorfică
-
-Caută un obiect într-un MutableMap și îl înlocuiește cu altul
-
-
-Parsează fiecare bloc de log separat prin două linii noi (\n\n)
-
-Creează un HistoryLogRecord pentru fiecare intrare
-
-Returnează un MutableMap<Timestamp, HistoryLogRecord>
-
-maxim(obj1: T, obj2: T): T
-
-Funcție generică pentru a compara două obiecte Comparable
-
-Returnează obiectul cu cel mai recent timestamp
-
-findAndReplace(firstElem: T, secondElem: T, map: MutableMap<K,T>): MutableMap<out K, out T>
-
-Funcție generică polimorfică
-
-Caută un obiect într-un MutableMap și îl înlocuiește cu altul
-
-Exemplu rulare
-fun main() {
-    var logsMap: MutableMap<Timestamp, HistoryLogRecord> = processingLogFile("resources/a.txt")
-
-    val r1 = logsMap[Timestamp.valueOf("2025-04-01 01:05:49.0")]!!
-    val r2 = logsMap[Timestamp.valueOf("2025-04-02 16:37:43.0")]!!
-
-    val r3 = maxim(r1, r2)
-    println(r3.timestamp.toString() + " " + r3.command)
-
-    val newLogsMap = findAndReplace(r1, r2, logsMap)
-    newLogsMap.forEach {
-        println(it.key.toString() + " " + it.value.command)
-    }
-}
-
-Exemplu de output:
+Output:
+Plaintext
 
 2025-04-02 16:37:43.0 /usr/bin/unattended-upgrade
 2025-04-01 01:05:49.0 apt install sqlite3 sqlitebrowser
 2025-04-02 16:37:43.0 /usr/bin/unattended-upgrade
-...
+
+⚙️ Build & Run
+
+    Compile with Kotlin CLI:
+    Bash
+
+    kotlinc src/HistoryLogRecord.kt src/Main.kt -include-runtime -d LogProcessor.jar
+
+    Run the application:
+    Bash
+
+    java -jar LogProcessor.jar
