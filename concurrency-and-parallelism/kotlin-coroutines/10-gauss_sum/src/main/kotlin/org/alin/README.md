@@ -1,40 +1,22 @@
-> Descriere
+# Concurrent Gauss Summation using Kotlin Coroutines
 
-Această aplicație calculează suma numerelor de la 0 până la n pentru patru valori diferite de n simultan, folosind corutine Kotlin.
+## 📝 Description
+This application calculates the sum of numbers from $0$ to $n$ (Gauss summation) for multiple values of $n$ simultaneously. By leveraging **Kotlin Coroutines**, the program demonstrates how to process a queue of tasks concurrently, significantly reducing the total execution time compared to sequential processing.
 
-Cerințe esențiale
+## 🚀 Core Requirements
+* **Input Management**: Uses a thread-safe `Queue` to store four distinct values of $n$.
+* **Parallel Processing**: Each value is picked up by a separate coroutine.
+* **Gauss Logic**: Implements $\sum_{i=0}^{n} i$ logic via a dedicated function.
+* **Real-time Output**: Results are printed to the console as soon as each coroutine finishes its calculation, showcasing the non-deterministic nature of concurrent execution.
 
-Input: patru valori n puse într-o coadă (Queue<Int>).
-
-Pentru fiecare valoare n, se calculează sum = 0 + 1 + 2 + ... + n.
-
-Procesarea fiecărei valori este concurentă prin corutine. 
-
-Rezultatele sunt afișate imediat după calculul fiecărei valori.
-
-Structura proiectului
-> project-root/
+## 🏗️ Project Structure
+```text
+project-root/
 ├── src/
 │   └── main/
 │       └── kotlin/
 │           └── org/
 │               └── alin/
-│                   └── Hello.kt
+│                   └── Hello.kt  <-- Main Logic & GaussSummation function
 ├── pom.xml
 └── .gitignore
-Flux de execuție
-
-Coada conține valori: 4, 10, 25, 14.
-
-Fiecare corutină preia o valoare din coadă.
-
-Se calculează suma Gauss pentru acea valoare.
-
-Se afișează rezultatul, în orice ordine (execuție concurentă).
-
-Clase și roluri
-
-Hello.kt — definește funcția GaussSummation(n: Int): Int Compilează proiectul cu Maven:și corutine (kotlinx-corout
-> mvn clean compile
-2. Rulează:
-> mvn exec:java -Dexec.mainClass="org.alin.HelloKt"
