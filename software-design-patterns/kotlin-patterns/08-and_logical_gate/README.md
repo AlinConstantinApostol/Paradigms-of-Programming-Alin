@@ -1,113 +1,76 @@
-AND Gate Builder
-Descriere
+Multi-Input AND Gate Builder: Advanced Design Patterns in Kotlin
+📝 Description
 
-Această aplicație implementează porți logice AND cu 2, 3, 4 și 8 intrări folosind:
+This project implements a flexible logic gate simulation engine focusing on AND Gates with variable inputs (2, 3, 4, and 8). The core strength of this application lies in its architectural integrity, utilizing a combination of Structural, Creational, and Behavioral design patterns to solve hardware logic simulation in a software-oriented way.
+🚀 Architectural Patterns
 
-Bridge Pattern – decuplează abstractizarea porții logice (ControlLogicGate) de implementarea efectivă (ANDGate).
+The project is built upon three pillar patterns to ensure "Clean Code" principles:
 
-Builder Pattern – permite construcția portelor AND cu un număr variabil de intrări.
+    Bridge Pattern: Decouples the gate's abstraction (ControlLogicGate) from its implementation (ANDGate). This allows the control logic and the physical gate logic to vary independently.
 
-Finite State Machine (FSM) – starea porții AND (StateTrue / StateFalse) este calculată pe baza intrărilor.
+    Builder Pattern: Simplifies the construction of complex objects. Instead of manual instantiation, the ConcreteANDBuilder handles the creation of gates with specific input counts (2, 3, 4, or 8).
 
-Aplicația permite:
+    Finite State Machine (FSM): The internal state of the gate is managed via a State pattern (StateTrue / StateFalse). The gate's output is not just a boolean, but a state transition triggered by input changes.
 
-Construirea portelor AND cu diferite numere de intrări
+🏗️ Project Structure
+Plaintext
 
-Setarea intrărilor la true sau false
-
-Calcularea rezultatului final al porții
-Structura proiectului
 ANDGateBuilder/
-│
-├── out/                     # folder generat automat la compilare
-├── src/                     # conține toate fișierele sursă Kotlin
-│   ├── Main.kt
-│   ├── State.kt
-│   ├── LogicGate.kt
-│   ├── Builder.kt
-│   ├── ANDGate.kt
-│
-├── .idea/
-├── ex1_and_logical_gate.iml
+├── src/
+│   ├── Main.kt             # Orchestration and usage demonstration
+│   ├── State.kt            # FSM State interface and concrete states (True/False)
+│   ├── LogicGate.kt        # Implementation interface (Bridge)
+│   ├── Builder.kt          # Construction interface and Concrete Builder
+│   └── ANDGate.kt          # Concrete implementation of the logic gate
 ├── .gitignore
-Arhitectura și pattern-uri
-Bridge
+└── ex1_and_logical_gate.iml
 
-LogicGate – interfața care definește metodele comune pentru orice poartă logică (addInput, setTrue, setFalse, getResult)
+🛠️ Implementation Details
+The Bridge & FSM
 
-ANDGate – implementarea concretă a porții AND
+    LogicGate: Defines the contract for all gates (inputs, state changes, results).
 
-ControlLogicGate – clasă care folosește un obiect LogicGate pentru a calcula rezultatul (decuplarea abstractizare-implementare)
+    ControlLogicGate: Acts as the refined abstraction, providing a high-level API to calculate outputs from lists of booleans.
 
-Builder
+    State Logic: The gate uses changeState() to evaluate inputs. If all inputs are true, the internal state transitions to StateTrue; otherwise, it remains StateFalse.
 
-Builder – interfață pentru construcția porților AND
+The Builder
 
-ConcreteANDBuilder – implementarea Builder, poate construi porți AND cu 2, 3, 4 sau 8 intrări
+The ConcreteANDBuilder provides specialized methods:
 
-Metode:
+    buildAND2Gate(), buildAND4Gate(), buildAND8Gate()
 
-buildAND2Gate()
+    Each method ensures the gate is initialized with the correct number of default false inputs.
 
-buildAND3Gate()
+💻 Usage Example
+Kotlin
 
-buildAND4Gate()
-
-buildAND8Gate()
-
-getProductResult() – returnează obiectul construit
-
-Finite State Machine
-
-State – interfață pentru starea porții
-
-StateTrue / StateFalse – stările posibile ale unei porți AND
-
-ANDGate.changeState() – determină starea porții pe baza intrărilor
-
-Exemplu de utilizare
 fun main() {
     val builder = ConcreteANDBuilder()
-    builder.buildAND4Gate() // Construiește poarta AND cu 4 intrări
+    builder.buildAND4Gate() // Orchestrate construction
 
     val gate = builder.getProductResult()
     val controlGate = ControlLogicGate(gate)
 
     val inputs = mutableListOf(true, false, false, true)
     println("Output is: " + controlGate.createOutput(inputs))
-
-    // Afișarea stării intrărilor
-    builder.getProductResult().printInputsList()
 }
 
-Output posibil:
+Expected Output:
+Plaintext
 
 4-inputs AND-Gate was built!
 Output is: false
 true false false true 
 
-Detalii implementare
-ANDGate.kt
+⚙️ Build & Run
 
-    Lista de intrări: listOfInputs: MutableList<Boolean>
+    Compile using Kotlin CLI:
+    Bash
 
-    Metode:
+    kotlinc src/*.kt -include-runtime -d GateBuilder.jar
 
-        addInput() – adaugă intrări default false
+    Run the application:
+    Bash
 
-        setTrue(index) / setFalse(index) – setează intrarea la true/false
-
-        changeState() – determină starea finală (StateTrue sau StateFalse)
-
-        getResult() – returnează rezultatul logic final
-
-ControlLogicGate (Bridge)
-
-    Primește un obiect LogicGate
-
-    createOutput(inputs: List<Boolean>) – iterează intrările, le setează pe poartă și returnează rezultatul final
-
-ConcreteANDBuilder (Builder)
-
-    Metode de construcție pentru 2, 3, 4 sau 8 intrări
-
+    java -jar GateBuilder.jar
