@@ -1,33 +1,59 @@
-# Prelucrare funcțională a unei liste (filter → chunk → map → reduce)
+Functional List Processing Pipeline (Python)
+📝 Description
 
-## Descriere
-Se aplică operații funcționale pe lista `[1, 21, 75, 39, 7, 2, 35, 3, 31, 7, 8]`:
-1. Se elimină elementele mai mici decât 5.
-2. Se grupează elementele rămase în perechi consecutive.
-3. Se înmulesc elementele din fiecare pereche.
-4. Se însumează produsele obținute.
+This project implements a declarative data transformation pipeline in Python. It processes a numeric collection using a series of functional operations—filter, chunking (via list slicing), map, and reduce.
 
-Rezultatul final: `2989`.
+The goal is to demonstrate how complex data manipulations can be achieved without explicit loops or mutable state, utilizing Python's robust support for lambda functions and higher-order primitives.
+🚀 The Functional Pipeline
 
-## Algoritm (pași)
-- `filter` — păstrează doar elementele `>= 5`.
-- `chunk` (implementat ca slicing în pași de 2) — construiește perechi `(a, b)`.
-- `map` — calculează produsul pentru fiecare pereche.
-- `reduce` — însumează toate produsele.
+The application follows a strict sequence of transformations:
 
-## Fișier
-`main.py` — conține implementarea în Python (folosind `filter`, `map`, `reduce` și list comprehensions).
+    Filtering: Removes all elements strictly less than 5 using filter().
 
-Exemplu de cod (implementare folosită):
-```python
-from functools import reduce
+    Chunking: Groups the filtered list into pairs (a, b) using list comprehension and slicing.
 
-l = [1, 21, 75, 39, 7, 2, 35, 3, 31, 7, 8]
-l = list(filter(lambda x: x >= 5, l))
-l = map(lambda pair: pair[0] * pair[1],
-                    [l[i:i + 2] for i in range(0, len(l), 2)
-                     if i + 1 < len(l)])
-l = reduce(lambda acc, x: acc + x, l, 0)
+    Mapping: Transforms each pair into its product (a×b) using map().
 
-print(l)
+    Reducing: Aggregates the resulting products into a final sum using functools.reduce().
 
+🏗️ Project Structure
+Plaintext
+
+project-root/
+└── main.py          # Core logic using filter, map, and reduce
+
+🔄 Algorithm Breakdown
+
+Initial Input: [1, 21, 75, 39, 7, 2, 35, 3, 31, 7, 8]
+
+    Filter (x >= 5): [21, 75, 39, 7, 35, 31, 7, 8]
+
+    Chunk (Step = 2): [[21, 75], [39, 7], [35, 31], [7, 8]]
+
+    Map (pair[0] * pair[1]): [1575, 273, 1085, 56]
+
+    Reduce (Sum): Result: 2989
+
+💻 Execution Example
+
+Output:
+Plaintext
+
+2989
+
+⚙️ How to Run
+
+    Ensure Python 3.x is installed.
+
+    Run the script directly:
+    Bash
+
+    python main.py
+
+🛠️ Tech Stack
+
+    Language: Python 3.x
+
+    Library: functools (for reduce)
+
+    Paradigm: Functional Programming (Higher-order functions & Lambdas)
