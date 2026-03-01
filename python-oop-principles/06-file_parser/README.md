@@ -1,86 +1,76 @@
-File Type Detector – Laborator Paradigms of Programming
-Descriere proiect
+Heuristic File Type Detector: Byte-Frequency Analysis
+📝 Description
 
-Acest proiect implementează o aplicație care detectează tipul fișierelor dintr-un director dat, indiferent de extensia lor, pe baza frecvenței caracterelor din conținut.
+This Python application implements a robust file type detection engine that identifies file formats based on their internal byte distribution rather than unreliable file extensions. By calculating the frequency of characters (0–255) and analyzing specific structural patterns, the tool can accurately distinguish between plain text, various encodings, binary data, and specific structured formats like XML and BMP.
 
-Tipurile de fișiere detectate:
+The project highlights advanced OOP principles, specifically inheritance and polymorphism, to create a scalable architecture for file classification.
+🚀 Key Features
 
-Text ASCII/UTF-8 – frecvențe mari pentru caractere între 9, 10, 13 și 32–127; frecvențe foarte mici pentru caractere control (0–8, 11, 12, 14–31, 128–255)
+    Frequency-Based Detection: Uses statistical analysis of byte occurrences to differentiate between ASCII, UTF-16, and Binary files.
 
-Text UNICODE/UTF-16 – caracterul 0 apare în cel puțin 30% din text
+    Encoding Identification:
 
-Binar – distribuție uniformă a frecvențelor între 0–255
+        UTF-8/ASCII: High frequency of printable characters (ASCII 32–127).
 
-XML – fișiere ASCII cu tag-uri XML
+        UTF-16: Detects null-byte padding (typically >30% of the content).
 
-BMP – fișiere binare cu dimensiuni și bits-per-pixel extrase din header
+    Deep Inspection:
 
-Structura proiectului
+        XML: Specialized parsing for ASCII files to identify markup tags.
+
+        BMP: Binary header inspection to extract metadata such as width, height, and Bits-Per-Pixel (BPP).
+
+    Recursive Scanning: Automatically crawls through directory trees to process batches of files.
+
+🏗️ Project Structure
+Plaintext
+
 FileTypeDetector/
-│
-├── main.py                  # Script principal pentru scanarea directorului și clasificarea fișierelor
-├── filetype.py              # Clasele pentru fiecare tip de fișier (GenericFile, TextASCII, TextUNICODE, Binary, XMLFile, BMP)
-├── filesToParse/            # Directorul cu fișierele test
-│   ├── file.xml
-│   ├── file02.txt
-│   ├── sample_1280x853.bmp
-│   ├── utf8.txt
-│   └── utf16.txt
-├── .venv/                   # Mediu virtual (opțional)
-├── .idea/                   # Configurații IDE
-└── __pycache__/             # Fișiere cache Python
+├── main.py            # Main execution script and directory crawler
+├── filetype.py        # Core OOP hierarchy (GenericFile and subclasses)
+├── filesToParse/      # Test dataset directory
+└── README.md
 
-Clase principale
-Clasă	Rol
-GenericFile	Clasă de bază pentru toate fișierele, definește interfața get_path() și get_freq()
-TextASCII	Reprezintă fișiere ASCII/UTF-8, moștenește GenericFile
-TextUNICODE	Reprezintă fișiere Unicode/UTF-16, moștenește GenericFile
-Binary	Reprezintă fișiere binare generale
-XMLFile	Reprezintă fișiere XML, moștenește TextASCII și adaugă metoda get_first_tag()
-BMP	Reprezintă fișiere BMP, moștenește Binary și include width, height, bpp
-Funcții importante
+🛠️ Detection Logic & Heuristics
 
-    frequencies_get(content) – calculează frecvențele caracterelor și media lor
+The application classifies files by evaluating the frequency array freq and the mean occurrence mean:
 
-    is_UTF8(freq) – verifică dacă fișierul este ASCII/UTF-8
+    ASCII/UTF-8: If non-printable "control" characters occur with negligible frequency.
 
-    is_UTF16(freq) – verifică dacă fișierul este Unicode/UTF-16
+    UTF-16: If the null character (byte 0) represents a significant portion of the file (threshold ≥30%).
 
-    is_BINARY(freq, mean) – verifică dacă fișierul este binar
+    Binary: If the distribution across the 0–255 range is relatively uniform.
 
-    width_and_height(content) – extrage lățimea și înălțimea pentru fișiere BMP
+    BMP: A binary file where the header contains specific dimensions and depth metadata.
 
-Cum funcționează
+💻 Usage Example
 
-    Scanare director
-
-        Scriptul parcurge recursiv directorul filesToParse cu os.walk().
-
-        Fiecare fișier este deschis în mod binar (rb) și conținutul său este citit.
-
-    Determinarea tipului fișierului
-
-        Se calculează frecvențele caracterelor.
-
-        Se verifică dacă fișierul este:
-
-            UTF-8 (is_UTF8)
-
-            UTF-16 (is_UTF16)
-
-            Binar (is_BINARY)
-
-        Dacă este ASCII și are extensia .xml, este tratat ca XML.
-
-        Dacă este BMP, se extrag width, height și bpp.
-
-    Stocarea și afișarea informațiilor
-
-        Fiecare fișier este instanțiat într-un obiect corespunzător (TextASCII, TextUNICODE, Binary, XMLFile, BMP).
-
-        La final, toate fișierele sunt afișate cu informațiile relevante.
-
-Exemplu rulare
+To scan the default filesToParse directory:
+Bash
 
 python main.py
 
+Typical Output:
+Plaintext
+
+File: utf16.txt | Type: TextUNICODE (UTF-16)
+File: sample.bmp | Type: BMP Image (1280x853, 24 bpp)
+File: data.xml   | Type: XMLFile (First Tag: <root>)
+File: app.bin    | Type: Binary Data
+
+⚙️ Setup
+
+    Clone the repository:
+    Bash
+
+    git clone https://github.com/YourUsername/Paradigms-of-Programming-Alin.git
+
+    Navigate to the project:
+    Bash
+
+    cd python-oop-principles/FileTypeDetector
+
+    Run the detector:
+    Bash
+
+    python main.py
