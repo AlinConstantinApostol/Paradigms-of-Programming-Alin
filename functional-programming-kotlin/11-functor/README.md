@@ -1,46 +1,65 @@
-# MutableMap Functor (Kotlin)
+# Generic MutableMap Functor Implementation (Kotlin)
 
-## Descriere
-Implementare a unui **functor** pentru colecții de tip `MutableMap<K, V>` care permite aplicarea succesivă a transformărilor asupra valorilor din map, păstrând cheile. Functorul expune metoda `map(function: (V) -> V)` care returnează un nou `MutableMapFunctor` cu valorile transformate.
+## 📝 Description
+This project implements a **Functor** pattern for `MutableMap<K, V>` collections. In functional programming, a Functor is a type of mapping between categories that allows for the transformation of values within a structure while strictly preserving the structure itself (in this case, the keys of the map).
 
-## Comportament implementat
-- `MutableMapFunctor.map` iterează perechile `(cheie, valoare)` din map și aplică funcția primită pe valoare, construind un nou `MutableMap`.
-- Exemplu de pipeline folosit în proiect:
-  1. adăugarea prefixului `"Test "` la fiecare valoare;
-  2. conversia fiecărei valori în PascalCase (funcție extensie `toPascalCase`).
+The implementation provides a fluent `map` method that enables functional pipelining, allowing developers to chain transformations on map values in a clean, declarative manner.
 
-## Structura proiect
+## 🚀 Key Features
+* **Structure Preservation**: Transforms values $v \in V$ such that $f(v) = v'$, while the associated keys $k \in K$ remain unchanged: $(k, v) \xrightarrow{f} (k, v')$.
+* **Fluent API**: Supports method chaining, allowing multiple transformations to be applied in a single pipeline.
+* **Generic Design**: The `MutableMapFunctor<K, V>` is fully generic, supporting any key and value types.
+* **Extension Functions**: Includes custom String extensions like `toPascalCase()` to demonstrate real-world utility.
+
+
+
+## 🏗️ Project Structure
+```text
+project-root/
 ├── src/
-│ ├── Main.kt
-│ └── MutableMapFunctor.kt
+│   ├── Main.kt                # Application entry point and usage examples
+│   └── MutableMapFunctor.kt   # Core Functor implementation
 ├── .gitignore
 └── ex4_functor.iml
 
-## Fișiere cheie
-- `MutableMapFunctor.kt` — implementarea functorului generic `MutableMapFunctor<K, V>`.
-- `Main.kt` — exemplu de utilizare:
-  - definirea funcției `addTestString(string: String): String` (adaugă prefixul `"Test "`),
-  - extensia `String.toPascalCase()` (transformă un text în PascalCase),
-  - creare `MutableMap<Int, String>` cu valori de test,
-  - aplicare `MutableMapFunctor(map).map { addTestString(it) }.map { it.toPascalCase() }.map` și afișarea rezultatului.
+🔄 Functional Pipeline Example
 
-## Compilare & rulare (Kotlin CLI)
-```bash
-kotlinc src -include-runtime -d functor.jar
-java -jar functor.jar
-Exemplu de rulare (output)
+The project demonstrates a pipeline that performs the following transformations on a MutableMap<Int, String>:
 
-Pornind de la map-ul:
-1 -> "thank you"
-2 -> "multumesc mult"
-3 -> "danke schoen"
-4 -> "gracias"
-5 -> "merci beaucoup"
-6 -> "grazie"
-După aplicarea map { addTestString } și map { it.toPascalCase() }, rezultatul tipic afișat va arăta astfel:
-{1=TestThankYou, 2=TestMultumescMult, 3=TestDankeSchoen, 4=TestGracias, 5=TestMerciBeaucoup, 6=TestGrazie}
-Observații de utilizare
+    Prefixing: Adds "Test " to every string value.
 
-MutableMapFunctor este generic și funcționează pentru orice tip K și V; funcțiile transformat trebuie să returneze același tip V.
+    Formatting: Converts the resulting string to PascalCase.
 
-Poate fi folosit pentru pipeline-uri funcționale de transformare a valorilor din hărți fără a modifica cheile originale.
+Code Snippet:
+Kotlin
+
+MutableMapFunctor(map)
+    .map { addTestString(it) }
+    .map { it.toPascalCase() }
+
+💻 Execution Example
+
+Initial Map:
+{1="thank you", 2="multumesc mult", 3="danke schoen"}
+
+Processed Result:
+{1=TestThankYou, 2=TestMultumescMult, 3=TestDankeSchoen}
+⚙️ Build & Run (Kotlin CLI)
+
+    Compile the source files:
+    Bash
+
+    kotlinc src -include-runtime -d functor.jar
+
+    Run the application:
+    Bash
+
+    java -jar functor.jar
+
+🛠️ Tech Stack
+
+    Language: Kotlin
+
+    Paradigm: Functional Programming (Functors)
+
+    Build Tool: Kotlin Compiler (CLI)
