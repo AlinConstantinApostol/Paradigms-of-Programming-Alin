@@ -1,54 +1,72 @@
-# Executor de comenzi cu pipe-uri (Python)
+# Command Executor with Multi-Stage Piping (Python)
 
-## Descriere
-Aplicația permite citirea de la tastatură a unei comenzi ce poate conține **pipe-uri** (`|`) și execută fiecare segment al comenzii într-un proces separat, legând stdout-ul unei comenzi la stdin-ul următoarei, simulând comportamentul unui shell.
+## 📝 Description
+This application is a Python-based command-line utility that mimics the behavior of a Unix Shell. It reads complex commands containing **pipes (`|`)**, splits them into individual segments, and executes each as a separate process. 
 
-### Cerințe esențiale
-- Citirea unei comenzi complete de la tastatură.
-- Separarea comenzii în subcomenzi individuale pe baza caracterului `|`.
-- Executarea fiecărei comenzi într-un proces (`subprocess.Popen`).
-- Legarea stdout-ului unei comenzi la stdin-ul următoarei.
-- Colectarea și afișarea rezultatului final.
+The core logic dynamically links the standard output (`stdout`) of one process to the standard input (`stdin`) of the next, creating a continuous data pipeline until the final result is produced.
 
----
+## 🚀 Core Requirements
+* **Command Parsing**: Reads a full string from the user and tokenizes it based on the `|` delimiter.
+* **Process Orchestration**: Uses the `subprocess.Popen` constructor to launch concurrent processes for each sub-command.
+* **Stream Redirecting**: Manually manages file descriptors to ensure data flows correctly from one process to another without manual intervention.
+* **Final Collection**: Captures the terminal output of the last command in the pipeline using the `communicate()` method.
 
-## Structura proiectului
-
+## 🏗️ Project Structure
+```text
 project-root/
-├── main.py
-├── .idea/
-└── .venv/
+├── main.py        # Logic for parsing and process chaining
+├── .idea/         # IDE configuration files
+└── .venv/         # Python virtual environment
 
----
+🔄 Execution Logic
 
-## Funcționalitate
-1. Funcția `get_commands()` citește comanda de la tastatură și o împarte în subcomenzi.
-2. Pentru fiecare subcomandă:
-   - Prima subcomandă este lansată cu stdout redirecționat către pipe.
-   - Comenzile următoare primesc stdin de la stdout-ul comenzii anterioare.
-3. Se așteaptă ca ultima comandă să se finalizeze (`communicate()`) și se afișează rezultatul.
+    Input Phase: The get_commands() function retrieves the raw input (e.g., cat file.txt | grep "error" | wc -l).
 
----
+    Chaining Phase:
 
-## Exemplu de rulare
+        The first process is initialized with its stdout set to a pipe.
 
-Input:
+        Intermediate processes are launched with their stdin connected to the previous process's stdout.
+
+        The final process's stdout is captured as the overall result.
+
+    Completion Phase: The program waits for the final process to finish and displays the output.
+
+💻 Usage Example
+
+Input Command:
+Bash
+
 ip a | grep inet | wc -l
 
+Process Flow:
+
+    ip a runs → sends output to Pipe 1.
+
+    grep inet reads from Pipe 1 → sends filtered output to Pipe 2.
+
+    wc -l reads from Pipe 2 → calculates line count.
+
 Output:
+Plaintext
+
 3
 
-- Comenzile sunt rulate secvențial, legând pipe-urile corespunzător.
-- Rezultatul final al ultimei comenzi este afișat pe ecran.
+⚙️ How to Run
 
----
+    Ensure you have Python 3.x installed.
 
-## Execuție
+    Run the script:
+    Bash
 
-Rularea programului:
+    python main.py
 
-```bash
-python main.py
-Se introduce comanda completă cu eventuale pipe-uri.
+    Enter your command when prompted.
 
-Programul procesează și afișează rezultatul final.
+🛠️ Tech Stack
+
+    Language: Python 3.x
+
+    Module: subprocess (Standard Library)
+
+    OS Concept: Inter-Process Communication (IPC) via Pipes
